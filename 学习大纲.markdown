@@ -1,0 +1,93 @@
+## 学习目标：
+
+本学习大纲面向**从0到1入门**的本科生，目标是在**6-8 周**内，帮助同学建立对课题组研究方向的整体认知、核心技术理解与基础科研能力，为后续参与真实科研项目打下基础。
+
+- **基础夯实**：了解人工智能与大模型基础知识，能够自主检索并读懂前沿论文与代码
+- **领域认知**：理解什么是**大模型/多模态推理**、**LLM Agent（agentic learning）、可信学习**
+- **科研素养**：具备“**提出问题 -> 文献检索 -> 代码复现 -> 实验分析**”的完整科研闭环能力。
+
+## 阶段1:人工智能与大模型基础
+
+**预备工作：**
+
+1. 请自行搜索，了解什么是**arXiv、Huggingface、Google Scholar、DBLP**
+2. 了解**ICML、NeurIPS、ICLR**等人工智能顶级会议，具备根据某个topic检索相关论文的能力
+
+### 1.神经网络与深度学习基础
+
+1. 学习目标：
+   1. 掌握神经网络的基本原理，能够理解前向传播与反向传播的数学推导
+   2. 掌握CNN/ResNet、RNN等机器学习基础模型架构；了解图神经网络（GCN，GAT，GIN）；
+   3. 掌握Pytorch核心组件的使用，例如Dataloader、损失函数、模型搭建、优化器等
+   4. 掌握huggerface库（transformer库）的使用，学会使用gpu
+2. 参考资料：
+   1. [动手学深度学习](https://zh.d2l.ai/)
+   2. 此阶段以自学为主，参考材料自行从网上搜索
+
+### 2.大语言模型（LLMs）
+
+1. 学习目标：
+   1. 掌握Transformer的核心机制(Self-Attention, Decoder-only vs Encoder-Decoder等)
+   2. 了解BERT、GPT系列、LLaMA、**Qwen**系列等典型大语言模型
+2. 参考资料：
+   1. Happy-LLM：https://datawhalechina.github.io/happy-llm/
+
+### 3.视觉与多模态大模型（MLLMs)
+
+1. 了解Vision Transformer (ViT)的基本原理
+2. 了解LLaVA、Qwen-VL系列等前沿多模态大模型
+3. 参考资料：
+   1. [ViT论文](https://arxiv.org/abs/2010.11929) |  [代码库](https://github.com/lucidrains/vit-pytorch)
+   2. LLaVA论文：https://arxiv.org/abs/2304.08485
+   3. Qwen3-VL Technical Report：https://arxiv.org/abs/2511.21631
+   4. 多模态大模型论文串讲：[上](https://www.bilibili.com/video/BV1Vd4y1v77v/?spm_id_from=333.337.search-card.all.click)，[下](https://www.bilibili.com/video/BV1fA411Z772/?spm_id_from=333.337.search-card.all.click)
+
+### 4.大模型推理（LLM Reasoning)--主要研究方向之一
+
+1. 掌握基础的 Prompt Engineering (Zero-shot, Few-shot, etc) 及 API 调用方式
+2. 掌握**Chain-of-Thought**（思维链）大模型推理机制
+3. 掌握**SFT**（监督微调）、OPD、PPO、DPO、**GRPO**等提升基座模型推理能力的后训练方式，了解R1-like LLM的训练过程
+4. 了解GSM8K、MATH等常用的benchmark
+5. 参考资料：
+   1. [Prompt Engineering Guide](https://www.promptingguide.ai/zh)
+   2. [DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning](https://arxiv.org/abs/2501.12948)
+   3. [SFT or RL? An Early Investigation into Training R1-Like Reasoning Large Vision-Language Models](https://arxiv.org/pdf/2504.11468)
+   4. [SFT Memorizes, RL Generalizes: A Comparative Study of Foundation Model Post-training](https://arxiv.org/abs/2501.17161)
+
+### 5.Rationale Learning （非LLM的学生可不看）
+
+1. 阅读Dare: Disentanglement-augmented rationale extraction，了解Rationale Learning 的定义和基本做法
+2. 阅读Cooperative Classification and Rationalization for Graph Generalization，了解图神经网络+Rationale Learning的结合
+3. 阅读Federated Self-Explaining GNNs with Anti-shortcut Augmentations，了解什么是联邦学习，以及联邦学习+Rationale Learning
+
+### 6.了解Agent
+
+1. 了解agent的组成（规划，工具调用，记忆，执行等）
+2. 掌握openclaw，Hermes，codex，Claude code的使用。熟悉Harness工程。
+3. 掌握skill的相关技术。学习网站：https://mangooai.github.io/skills-radar/
+4. 掌握软件测试。后续agent轨迹调优，skill调优会涉及到软件测试的部分知识
+
+
+
+## 代码实战
+
+1.基于SFT，OPD或GRPO算法微调一个开源大语言模型或者多模态大模型，例如Qwen-Math系列，在一个数学推理数据集（例如GSM8K、MATH、MathVista、WeMath等）进行评测，分析微调前后模型的性能变化。
+
+目标：体会SFT与RL作为两种常用post-training范式的区别，并学会使用两种方式提升base model推理能力；**SFT，OPD为必选任务**，GRPO如果跑不起来，可以只掌握原理/代码实现
+
+注：代码应尽量复用开源框架（如 **LLaMA-Factory, VerL,** Transformer Reinforcement Learning(TRL)、LangChain等），重点在于**掌握算法流程**而非重复造轮子。若算力受限，请优先使用 PEFT (**LoRA/QLoRA**) 或小参数量模型（如 Qwen-2.5-1.5B/3B）
+
+
+
+2.搭建并使用智能体：（1）下载运行openclaw，Hermes，codex（2）运行Claude code+GLM5.2/deepseek v4
+
+（3）能够配置skill，mcp等关键部件
+
+
+
+----
+
+Copyright：My friend 
+
+
+

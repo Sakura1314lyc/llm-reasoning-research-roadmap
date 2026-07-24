@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Environment
+.env
+secrets.json
+
+# Models
+checkpoints/
+models/
+*.bin
+*.safetensors
+
+# Logs
+wandb/
+logs/
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# System
+.DS_Store
