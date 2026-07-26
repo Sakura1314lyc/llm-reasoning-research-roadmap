@@ -39,4 +39,22 @@ class CSVDataset(Dataset):
         train_size = len(self.X) - test_size
         #根据尺寸划分训练集和测试集并返回
         return random_split(self, [train_size, test_size])
-        
+    
+
+
+
+
+
+    
+# 定义数据集路径（在本例中，数据集需为 csv 文件）
+data_path = 'https://raw.githubusercontent.com/jbrownlee/Datasets/master/iris.csv'
+# 实例化数据集
+dataset = CSVDataset(data_path)
+print(f'输入矩阵的形状是：{dataset.X.shape}')
+# dataset.X  # 查看输入矩阵 dataset.X
+print(f'输出矩阵的形状是：{dataset.y.shape}')
+# dataset.y  # 查看输出矩阵
+# len() 方法本质上是调用类内部的 __len__() 方法，所以以下方法是等效的。
+print(len(dataset))
+# dataset[] 方法本质上是调用类内部的 __getitem__ 方法，所以以下方法是等效的。
+print(dataset[149])
