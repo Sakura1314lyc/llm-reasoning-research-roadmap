@@ -42,3 +42,9 @@ print("真实类别:", labels)
 accuracy = (predictions == labels).float().mean()
 
 print("准确率:", accuracy.item())
+
+Model = nn.Sequential(
+    nn.Linear(3, 8),
+    nn.ReLU(),
+    nn.Linear(8, 2)
+)
