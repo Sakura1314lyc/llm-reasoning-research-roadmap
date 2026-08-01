@@ -1,7 +1,5 @@
 #解决过拟合的方法: 权重衰减 weight_decay
 # dropout : 神经网络里面的正则化层
-import copy
-
 import torch
 from torch import nn
 from torch.utils.data import(
@@ -231,14 +229,29 @@ for epoch in range(1, 1001):
     if val_loss < best_val_loss - min_delta:
         best_val_loss = val_loss
         best_epoch = epoch
-
-        best_model_state = copy.deepcopy(
-            model.state_dict()
+        torch.save(
+            model.state_dict(),
+            "best_model.pth" #用于存验证集最好的模型,用于最终测试和部署
         )
-
         epochs_without_improvement = 0
     else:
         epochs_without_improvement += 1
+
+    checkpoint = {
+        "epoch": epoch,
+        "model_state_dict": model.state_dict(),
+        "optimizer_state_dict": optimizer.state_dict(),
+        "best_val_loss": best_val_loss,
+        "best_epoch": best_epoch,
+        "train_loss": train_loss,
+        "val_loss": val_loss
+    }
+
+    torch.save(
+        checkpoint,
+        "latest_checkpoint.pth" #保存最近一次训练状态, 用于意外中断后继续训练
+    )
+
 
     if epoch == 1 or epoch % 10 == 0:
         print(
@@ -259,10 +272,13 @@ for epoch in range(1, 1001):
         break
 
 
-assert best_model_state is not None
+best_model_state = torch.load(
+    "best_model.pth",
+    map_location=device,
+    weights_only=True
+)
 
 model.load_state_dict(best_model_state)
-
 
 test_loss, test_accuracy = evaluate(
     model,

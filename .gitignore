@@ -11,8 +11,12 @@ secrets.json
 # Models
 checkpoints/
 models/
+*.pth
 *.bin
 *.safetensors
+
+# Datasets
+data/
 
 # Logs
 wandb/
