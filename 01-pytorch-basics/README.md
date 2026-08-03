@@ -94,3 +94,5 @@ python 01-pytorch-basics/lessons/13-confusion-matrix-analysis.py
 - 学习 RNN/LSTM 的序列建模基础
 - 把训练与评估逻辑提取成可复用模块
 - 为关键组件增加自动化测试
+
+完成本阶段的核心内容后，进入 [阶段 2：Transformer 原理与手写实现](../02-transformer/README.md)。

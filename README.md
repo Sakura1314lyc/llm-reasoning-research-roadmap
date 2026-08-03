@@ -18,15 +18,15 @@
 
 | 阶段 | 学习方向 | 状态 | 当前成果 |
 | ---: | --- | --- | --- |
-| 1 | PyTorch 与深度学习基础 | 🟡 进行中 | 完成标准训练流程、CNN、FashionMNIST 与错误分析 |
-| 2 | Transformer 原理与手写实现 | 🟡 进行中 | 完成缩放点积注意力、多头注意力和因果掩码 |
-| 3 | Hugging Face 与大语言模型 | ⚪ 未开始 | — |
-| 4 | 视觉与多模态大模型 | ⚪ 未开始 | — |
-| 5 | LLM Reasoning 与模型评测 | ⚪ 未开始 | — |
-| 6 | SFT 监督微调 | ⚪ 未开始 | — |
-| 7 | OPD 在线策略蒸馏 | ⚪ 未开始 | — |
-| 8 | GRPO 强化学习 | ⚪ 未开始 | — |
-| 9 | LLM Agent、Skill、MCP 与软件测试 | ⚪ 未开始 | — |
+| 1 | [PyTorch 与深度学习基础](01-pytorch-basics/README.md) | 🟡 进行中 | 完成标准训练流程、CNN、FashionMNIST 与错误分析 |
+| 2 | [Transformer 原理与手写实现](02-transformer/README.md) | 🟡 进行中 | 完成缩放点积注意力、多头注意力和因果掩码 |
+| 3 | [Hugging Face 与大语言模型](03-huggingface/README.md) | ⚪ 未开始 | — |
+| 4 | [视觉与多模态大模型](04-multimodal/README.md) | ⚪ 未开始 | — |
+| 5 | [LLM Reasoning 与模型评测](05-llm-reasoning/README.md) | ⚪ 未开始 | — |
+| 6 | [SFT 监督微调](06-sft/README.md) | ⚪ 未开始 | — |
+| 7 | [OPD 在线策略蒸馏](07-opd/README.md) | ⚪ 未开始 | — |
+| 8 | [GRPO 强化学习](08-grpo/README.md) | ⚪ 未开始 | — |
+| 9 | [LLM Agent、Skill、MCP 与软件测试](09-agents/README.md) | ⚪ 未开始 | — |
 
 ### 最近完成
 
@@ -34,6 +34,12 @@
 * [FashionMNIST CNN 完整项目](01-pytorch-basics/projects/01-fashion-mnist-cnn.py)
 * [FashionMNIST 混淆矩阵与错误样本分析](01-pytorch-basics/lessons/13-confusion-matrix-analysis.py)
 * [Transformer 多头注意力实现](02-transformer/01-multi-head-attention.py)
+
+### 记录入口
+
+* [每日与每周学习笔记](notes/README.md)
+* [论文阅读指南](papers/README.md)
+* [正式实验记录规范](experiments/README.md)
 
 ---
 
