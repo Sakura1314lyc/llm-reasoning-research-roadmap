@@ -1,4 +1,6 @@
 
+"""Python 高阶函数、闭包、装饰器和匿名函数练习。"""
+
 # 高阶函数
 def cal(x : int, y : int):
     return x - y

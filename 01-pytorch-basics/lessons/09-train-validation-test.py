@@ -1,12 +1,19 @@
-#解决过拟合的方法: 权重衰减 weight_decay
-# dropout : 神经网络里面的正则化层
+"""课程 09：训练集、验证集和测试集的标准训练流程。
+
+包含数据划分、单轮训练、评估以及最佳模型状态保存。
+"""
+
+import copy
+
 import torch
 from torch import nn
-from torch.utils.data import(
+from torch.utils.data import (
     TensorDataset,
     DataLoader,
     random_split
 )
+
+
 torch.manual_seed(42)
 
 
@@ -83,20 +90,18 @@ test_loader = DataLoader(
 print("len(train_loader) is ", len(train_loader))
 print("len(val_loader) is ", len(val_loader))
 print("len(test_loader) is ", len(test_loader))
+
+# ==========================
+# 4. 定义模型
+# ==========================
 class Classifier(nn.Module):
     def __init__(self):
         super().__init__()
 
         self.network = nn.Sequential(
-            nn.Linear(2, 64),
+            nn.Linear(2, 16),
             nn.ReLU(),
-            nn.Dropout(p=0.3),# 30%概率置零
-
-            nn.Linear(64, 64),
-            nn.ReLU(),
-            nn.Dropout(p=0.3),
-
-            nn.Linear(64, 3)
+            nn.Linear(16, 3)
         )
 
     def forward(self, x):
@@ -113,19 +118,13 @@ loss_fn = nn.CrossEntropyLoss()
 
 optimizer = torch.optim.SGD(
     model.parameters(),
-    lr=0.01,
-    weight_decay=1e-4 #权重损失:用于限制模型复杂度，限制参数大小
+    lr=0.03
 )
 
 
-best_val_loss = float("inf")
-best_model_state = None
-best_epoch = 0
-
-patience = 20
-min_delta = 1e-4
-epochs_without_improvement = 0
-
+# ==========================
+# 5. 单轮训练函数
+# ==========================
 def train_one_epoch(
     model,
     data_loader,
@@ -208,8 +207,13 @@ def evaluate(
     return average_loss, accuracy
 
 
+# ==========================
+# 7. 正式训练
+# ==========================
+best_val_loss = float("inf")
+best_model_state = None
 
-for epoch in range(1, 1001):
+for epoch in range(1, 201):
     train_loss, train_accuracy = train_one_epoch(
         model,
         train_loader,
@@ -225,61 +229,35 @@ for epoch in range(1, 1001):
         device
     )
 
-    # 判断验证损失是否真正改善
-    if val_loss < best_val_loss - min_delta:
+    # 保存验证集损失最低时的参数
+    if val_loss < best_val_loss:
         best_val_loss = val_loss
-        best_epoch = epoch
-        torch.save(
-            model.state_dict(),
-            "best_model.pth" #用于存验证集最好的模型,用于最终测试和部署
+
+        best_model_state = copy.deepcopy(
+            model.state_dict()
         )
-        epochs_without_improvement = 0
-    else:
-        epochs_without_improvement += 1
-
-    checkpoint = {
-        "epoch": epoch,
-        "model_state_dict": model.state_dict(),
-        "optimizer_state_dict": optimizer.state_dict(),
-        "best_val_loss": best_val_loss,
-        "best_epoch": best_epoch,
-        "train_loss": train_loss,
-        "val_loss": val_loss
-    }
-
-    torch.save(
-        checkpoint,
-        "latest_checkpoint.pth" #保存最近一次训练状态, 用于意外中断后继续训练
-    )
-
 
     if epoch == 1 or epoch % 10 == 0:
         print(
-            f"epoch={epoch:4d} | "
+            f"epoch={epoch:3d} | "
             f"train_loss={train_loss:.4f} | "
             f"train_acc={train_accuracy:.2%} | "
             f"val_loss={val_loss:.4f} | "
-            f"val_acc={val_accuracy:.2%} | "
-            f"wait={epochs_without_improvement}/{patience}"
+            f"val_acc={val_accuracy:.2%}"
         )
 
-    # 提前停止
-    if epochs_without_improvement >= patience:
-        print(
-            f"\n验证损失连续 {patience} 轮没有明显改善。"
-        )
-        print(f"训练在第 {epoch} 轮提前停止。")
-        break
 
-
-best_model_state = torch.load(
-    "best_model.pth",
-    map_location=device,
-    weights_only=True
-)
+# ==========================
+# 8. 加载验证集最优模型
+# ==========================
+assert best_model_state is not None
 
 model.load_state_dict(best_model_state)
 
+
+# ==========================
+# 9. 最终测试
+# ==========================
 test_loss, test_accuracy = evaluate(
     model,
     test_loader,
@@ -287,7 +265,6 @@ test_loss, test_accuracy = evaluate(
     device
 )
 
-print("\n最佳模型轮次:", best_epoch)
-print("最佳验证集损失:", best_val_loss)
+print("\n最佳验证集损失:", best_val_loss)
 print("测试集损失:", test_loss)
 print(f"测试集准确率: {test_accuracy:.2%}")

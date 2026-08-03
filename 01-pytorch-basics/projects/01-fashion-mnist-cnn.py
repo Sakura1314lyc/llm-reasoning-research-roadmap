@@ -1,3 +1,8 @@
+"""项目 01：使用 CNN 完成 FashionMNIST 图像分类。
+
+覆盖数据准备、训练、验证、最佳权重保存、测试和样本预测。
+"""
+
 from pathlib import Path
 
 import torch
@@ -13,6 +18,12 @@ from torchvision.transforms import v2
 # =========================
 # 1. 基本设置
 # =========================
+MODULE_ROOT = Path(__file__).resolve().parents[1]
+REPOSITORY_ROOT = MODULE_ROOT.parent
+
+DATA_ROOT = REPOSITORY_ROOT / "data"
+BEST_MODEL_PATH = REPOSITORY_ROOT / "fashion_cnn_best.pth"
+
 torch.manual_seed(42)
 
 device = torch.device(
@@ -53,14 +64,14 @@ transform = v2.Compose([
 # 3. 下载数据
 # =========================
 full_train_dataset = datasets.FashionMNIST(
-    root="./data",
+    root=DATA_ROOT,
     train=True,
     transform=transform,
     download=True
 )
 
 test_dataset = datasets.FashionMNIST(
-    root="./data",
+    root=DATA_ROOT,
     train=False,
     transform=transform,
     download=True
@@ -259,9 +270,7 @@ def evaluate(
 # =========================
 # 9. 正式训练
 # =========================
-best_model_path = Path(
-    "fashion_cnn_best.pth"
-)
+best_model_path = BEST_MODEL_PATH
 
 best_val_loss = float("inf")
 best_epoch = 0

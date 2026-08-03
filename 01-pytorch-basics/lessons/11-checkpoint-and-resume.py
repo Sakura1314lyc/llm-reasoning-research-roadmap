@@ -1,3 +1,8 @@
+"""课程 11：模型 Checkpoint 与断点续训。
+
+同时保存模型、优化器和训练进度，并从最近断点继续训练。
+"""
+
 from pathlib import Path
 
 import torch
@@ -15,13 +20,10 @@ device = torch.device(
     else "cpu"
 )
 
-checkpoint_path = Path(
-    "latest_checkpoint.pth"
-)
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 
-best_model_path = Path(
-    "best_model.pth"
-)
+checkpoint_path = REPOSITORY_ROOT / "latest_checkpoint.pth"
+best_model_path = REPOSITORY_ROOT / "best_model.pth"
 
 class Classifier(nn.Module):
     def __init__(self):

@@ -1,4 +1,9 @@
-#注意下numpy只能用于cpu
+"""课程 03：NumPy 数组与 PyTorch Tensor 的相互转换。
+
+重点比较共享内存的 ``torch.from_numpy`` 与复制数据的 ``torch.tensor``。
+"""
+
+# NumPy 数组只能位于 CPU 内存中。
 
 import numpy as np
 import torch

@@ -1,4 +1,6 @@
 torch
+torchvision
+numpy
 transformers
 datasets
 accelerate

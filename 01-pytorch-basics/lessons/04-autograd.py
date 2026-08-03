@@ -1,3 +1,8 @@
+"""课程 04：自动求导与计算图。
+
+观察叶子张量、梯度累积、``backward`` 和 ``no_grad`` 的行为。
+"""
+
 import torch
 
 x = torch.tensor(2.0, requires_grad=True) #若为false, 不会自动为其记录用于求导的计算图

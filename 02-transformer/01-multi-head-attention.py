@@ -1,3 +1,8 @@
+"""Transformer 课程 01：缩放点积注意力与多头注意力。
+
+实现 Q/K/V 投影、多头拆分与合并、因果掩码和注意力 Dropout。
+"""
+
 import math
 from dataclasses import dataclass
 
@@ -401,3 +406,39 @@ class MultiHeadAttention(nn.Module):
         output = self.resid_dropout(output)
 
         return output
+
+
+def demo() -> None:
+    """运行一个最小自注意力示例并检查输入输出形状。"""
+
+    torch.manual_seed(42)
+
+    args = ModelArgs(
+        dim=32,
+        n_heads=4,
+        dropout=0.0,
+        max_seq_len=16,
+    )
+
+    model = MultiHeadAttention(
+        args,
+        is_causal=True,
+    ).eval()
+
+    hidden_states = torch.randn(2, 8, args.dim)
+
+    with torch.no_grad():
+        output = model(
+            hidden_states,
+            hidden_states,
+            hidden_states,
+        )
+
+    print("input shape:", hidden_states.shape)
+    print("output shape:", output.shape)
+
+    assert output.shape == hidden_states.shape
+
+
+if __name__ == "__main__":
+    demo()

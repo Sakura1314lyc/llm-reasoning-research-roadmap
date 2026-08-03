@@ -1,3 +1,8 @@
+"""课程 12：二维卷积、池化、展平与简单 CNN。
+
+通过打印形状观察图像张量在卷积网络中的变化。
+"""
+
 import torch
 from torch import nn
 

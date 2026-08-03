@@ -1,3 +1,5 @@
+"""检查 NumPy、PyTorch、Transformers 和计算设备。"""
+
 import numpy as np
 import torch
 import transformers

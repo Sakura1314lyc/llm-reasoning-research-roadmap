@@ -1,3 +1,8 @@
+"""课程 08：Dataset 与 DataLoader。
+
+学习数据集封装、批处理、Shuffle 和自定义 Dataset。
+"""
+
 from typing import Any
 
 import torch

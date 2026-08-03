@@ -16,16 +16,24 @@
 
 ## 📌 当前进度
 
-* [ ] 阶段 1：PyTorch 与深度学习基础
-* [ ] 阶段 2：Transformer 原理与手写实现
-* [ ] 阶段 3：Hugging Face 与大语言模型
-* [ ] 阶段 4：视觉与多模态大模型
-* [ ] 阶段 5：LLM Reasoning 与模型评测
-* [ ] 阶段 6：SFT 监督微调
-* [ ] 阶段 7：OPD 在线策略蒸馏
-* [ ] 阶段 8：GRPO 强化学习
-* [ ] 阶段 9：LLM Agent、Skill、MCP 与软件测试
-* [ ] 最终实验报告与科研汇报
+| 阶段 | 学习方向 | 状态 | 当前成果 |
+| ---: | --- | --- | --- |
+| 1 | PyTorch 与深度学习基础 | 🟡 进行中 | 完成标准训练流程、CNN、FashionMNIST 与错误分析 |
+| 2 | Transformer 原理与手写实现 | 🟡 进行中 | 完成缩放点积注意力、多头注意力和因果掩码 |
+| 3 | Hugging Face 与大语言模型 | ⚪ 未开始 | — |
+| 4 | 视觉与多模态大模型 | ⚪ 未开始 | — |
+| 5 | LLM Reasoning 与模型评测 | ⚪ 未开始 | — |
+| 6 | SFT 监督微调 | ⚪ 未开始 | — |
+| 7 | OPD 在线策略蒸馏 | ⚪ 未开始 | — |
+| 8 | GRPO 强化学习 | ⚪ 未开始 | — |
+| 9 | LLM Agent、Skill、MCP 与软件测试 | ⚪ 未开始 | — |
+
+### 最近完成
+
+* [PyTorch 主线课程 01–13](01-pytorch-basics/README.md)
+* [FashionMNIST CNN 完整项目](01-pytorch-basics/projects/01-fashion-mnist-cnn.py)
+* [FashionMNIST 混淆矩阵与错误样本分析](01-pytorch-basics/lessons/13-confusion-matrix-analysis.py)
+* [Transformer 多头注意力实现](02-transformer/01-multi-head-attention.py)
 
 ---
 
@@ -159,8 +167,13 @@
 
 ```text
 llm-reasoning-research-roadmap/
-├── 01-pytorch-basics/       # PyTorch 与深度学习基础
-├── 02-transformer/          # Transformer 手写实现
+├── 01-pytorch-basics/       # PyTorch 基础、练习、项目与分析结果
+│   ├── lessons/             # 编号主线课程（01–13）
+│   ├── projects/            # 完整训练项目
+│   ├── practice/            # 小型知识点练习
+│   ├── python-review/       # Python 复习与环境检查
+│   └── outputs/             # 可展示的实验分析图片
+├── 02-transformer/          # Transformer 原理与手写实现
 ├── 03-huggingface/          # Hugging Face 模型使用
 ├── 04-multimodal/           # ViT 与多模态模型
 ├── 05-llm-reasoning/        # Prompt、CoT 与模型评测
@@ -186,7 +199,7 @@ llm-reasoning-research-roadmap/
 ### 1. 克隆仓库
 
 ```bash
-git clone https://github.com/你的用户名/llm-reasoning-research-roadmap.git
+git clone https://github.com/Sakura1314lyc/llm-reasoning-research-roadmap.git
 cd llm-reasoning-research-roadmap
 ```
 

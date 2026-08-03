@@ -1,3 +1,7 @@
+"""课程 05：使用 ``nn.Module`` 定义模型。
+
+学习注册子模块、前向传播、模型参数和 ``state_dict``。
+"""
 
 import torch
 from torch import nn

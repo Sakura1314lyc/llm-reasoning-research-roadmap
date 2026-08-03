@@ -1,3 +1,8 @@
+"""课程 13：FashionMNIST 模型评估与错误分析。
+
+生成分类报告、原始/归一化混淆矩阵和高置信度错误样本图。
+"""
+
 from pathlib import Path
 import random
 
@@ -22,9 +27,13 @@ LEARNING_RATE = 0.001
 # False：如果最佳模型文件存在，就直接加载
 FORCE_TRAIN = False
 
-DATA_ROOT = Path("./data")
-BEST_MODEL_PATH = Path("fashion_cnn_best.pth")
-OUTPUT_DIR = Path("./analysis_outputs")
+# 基于脚本位置构造路径，避免因当前工作目录不同而读写到错误位置。
+MODULE_ROOT = Path(__file__).resolve().parents[1]
+REPOSITORY_ROOT = MODULE_ROOT.parent
+
+DATA_ROOT = REPOSITORY_ROOT / "data"
+BEST_MODEL_PATH = REPOSITORY_ROOT / "fashion_cnn_best.pth"
+OUTPUT_DIR = MODULE_ROOT / "outputs"
 
 OUTPUT_DIR.mkdir(
     parents=True,

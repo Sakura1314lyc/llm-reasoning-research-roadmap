@@ -1,4 +1,9 @@
-#激活函数
+"""课程 06：激活函数与多层感知机。
+
+比较常见激活函数，并用 ``nn.Sequential`` 组合多层网络。
+"""
+
+# 激活函数为神经网络引入非线性表达能力。
 from typing import Any
 
 import torch

@@ -1,4 +1,9 @@
-# softmax
+"""课程 07：回归、二分类与多分类任务。
+
+理解 logits、Sigmoid、Softmax 以及不同任务的输出形式。
+"""
+
+# Softmax 将多分类 logits 转换为概率分布。
 import torch
 from torch import nn
 

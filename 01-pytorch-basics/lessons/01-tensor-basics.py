@@ -1,4 +1,9 @@
-# Tensor 翻译为张量 理解为能够在CPU或者GPU上进行高效数学运算的多维数组(本身是一种数据结构)
+"""课程 01：Tensor 基础。
+
+学习张量的创建、数据类型、形状、设备、索引和常见数学运算。
+"""
+
+# Tensor 是能够在 CPU 或 GPU 上进行高效数学运算的多维数组。
 
 import torch
 print(torch.__version__)
