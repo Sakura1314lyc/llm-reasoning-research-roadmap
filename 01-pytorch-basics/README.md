@@ -32,6 +32,7 @@
 | 11 | Checkpoint | 保存、恢复训练与加载最佳模型 | [11-checkpoint-and-resume.py](lessons/11-checkpoint-and-resume.py) |
 | 12 | CNN 基础 | 卷积、池化、展平和图像分类网络 | [12-conv2d-and-pooling.py](lessons/12-conv2d-and-pooling.py) |
 | 13 | 模型评估 | 混淆矩阵、分类指标和错误样本分析 | [13-confusion-matrix-analysis.py](lessons/13-confusion-matrix-analysis.py) |
+| 14 | 数据增强与归一化 | 区分训练/评估变换，理解图像标准化 | [14-data-augmentation-and-normalization.py](lessons/14-data-augmentation-and-normalization.py) |
 
 ## 完整项目
 
@@ -64,6 +65,7 @@
 python 01-pytorch-basics/lessons/01-tensor-basics.py
 python 01-pytorch-basics/projects/01-fashion-mnist-cnn.py
 python 01-pytorch-basics/lessons/13-confusion-matrix-analysis.py
+python 01-pytorch-basics/lessons/14-data-augmentation-and-normalization.py
 ```
 
 ## 数据与实验产物

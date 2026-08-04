@@ -25,19 +25,19 @@
 | 顺序 | 学习内容 | 建议代码文件 | 完成标准 |
 | ---: | --- | --- | --- |
 | 01 | 多头注意力 | [01-multi-head-attention.py](01-multi-head-attention.py) | 已完成 Q/K/V、多头拆分合并和因果掩码 |
-| 02 | Token Embedding | `02-token-embedding.py` | 输入 Token ID，输出 `[B, T, C]` |
-| 03 | 位置编码 | `03-positional-encoding.py` | 实现正弦位置编码并验证不同位置表示不同 |
-| 04 | RoPE | `04-rope.py` | 理解旋转维度，并验证形状保持不变 |
-| 05 | 归一化 | `05-normalization.py` | 对比 LayerNorm 与 RMSNorm |
-| 06 | Feed-Forward Network | `06-feed-forward.py` | 实现 Linear → 激活 → Linear |
-| 07 | Transformer Block | `07-transformer-block.py` | 组合 Attention、FFN、残差与归一化 |
+| 02 | Feed-Forward Network | [02-feed-forward-network.py](02-feed-forward-network.py) | 已完成逐 Token FFN 和梯度验证 |
+| 03 | 归一化 | [03-normalization.py](03-normalization.py) | 已对比 BatchNorm 与 LayerNorm 的统计维度 |
+| 04 | Encoder Layer | [04-encoder-layer.py](04-encoder-layer.py) | 已组合自注意力、FFN、残差与 Pre-Norm |
+| 05 | Decoder Layer | [05-decoder-layer.py](05-decoder-layer.py) | 已实现因果自注意力、交叉注意力与 Decoder-only 变体 |
+| 06 | 完整 Transformer | [06-transformer.py](06-transformer.py) | 已串联 Embedding、位置编码、Encoder 和 Decoder |
+| 07 | RoPE | `07-rope.py` | 理解旋转维度，并验证形状保持不变 |
 | 08 | Causal LM | `08-mini-gpt.py` | 输入 Token，输出词表 logits |
 | 09 | 训练实验 | `09-train-mini-gpt.py` | 在小文本上 overfit，验证 loss 能下降 |
-| 10 | 生成 | `10-autoregressive-generation.py` | 实现逐 Token 自回归生成 |
+| 10 | 自回归生成 | `10-autoregressive-generation.py` | 实现逐 Token 生成 |
 
 ## 第一部分：注意力机制
 
-当前脚本已经实现：
+当前代码已经实现：
 
 - Scaled Dot-Product Attention
 - Multi-Head Attention
@@ -45,11 +45,20 @@
 - Causal Mask
 - Attention/Residual Dropout
 - 输入形状和维度校验
+- 逐位置 Feed-Forward Network
+- BatchNorm 与 LayerNorm 对比
+- Pre-Norm Encoder/Decoder Layer
+- 教学版 Encoder-Decoder Transformer
 
 从仓库根目录运行：
 
 ```bash
 python 02-transformer/01-multi-head-attention.py
+python 02-transformer/02-feed-forward-network.py
+python 02-transformer/03-normalization.py
+python 02-transformer/04-encoder-layer.py
+python 02-transformer/05-decoder-layer.py
+python 02-transformer/06-transformer.py
 ```
 
 运行后应看到输入输出都为 `[2, 8, 32]`。
@@ -118,12 +127,14 @@ projects/01-mini-gpt/
 - [x] Scaled Dot-Product Attention
 - [x] Multi-Head Attention
 - [x] Causal Mask
-- [ ] Token Embedding
-- [ ] Positional Encoding
+- [x] Token Embedding
+- [x] Positional Encoding
 - [ ] RoPE
-- [ ] LayerNorm / RMSNorm
-- [ ] Feed-Forward Network
-- [ ] Transformer Block
+- [x] LayerNorm
+- [ ] RMSNorm
+- [x] Feed-Forward Network
+- [x] Encoder / Decoder Block
+- [x] Encoder-Decoder Transformer 前向传播
 - [ ] Mini GPT 训练与生成
 - [ ] 关键组件自动化测试
 
