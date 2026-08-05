@@ -29,11 +29,12 @@
 | 03 | 归一化 | [03-normalization.py](03-normalization.py) | 已对比 BatchNorm 与 LayerNorm 的统计维度 |
 | 04 | Encoder Layer | [04-encoder-layer.py](04-encoder-layer.py) | 已组合自注意力、FFN、残差与 Pre-Norm |
 | 05 | Decoder Layer | [05-decoder-layer.py](05-decoder-layer.py) | 已实现因果自注意力、交叉注意力与 Decoder-only 变体 |
-| 06 | 完整 Transformer | [06-transformer.py](06-transformer.py) | 已串联 Embedding、位置编码、Encoder 和 Decoder |
-| 07 | RoPE | `07-rope.py` | 理解旋转维度，并验证形状保持不变 |
-| 08 | Causal LM | `08-mini-gpt.py` | 输入 Token，输出词表 logits |
-| 09 | 训练实验 | `09-train-mini-gpt.py` | 在小文本上 overfit，验证 loss 能下降 |
-| 10 | 自回归生成 | `10-autoregressive-generation.py` | 实现逐 Token 生成 |
+| 06 | 正弦位置编码 | [06-positional-encoding.py](06-positional-encoding.py) | 已用 NumPy 实现并验证位置 0 的编码 |
+| 07 | 完整 Transformer | [07-transformer.py](07-transformer.py) | 已串联 Embedding、位置编码、Encoder 和 Decoder |
+| 08 | RoPE | `08-rope.py` | 理解旋转维度，并验证形状保持不变 |
+| 09 | Causal LM | `09-mini-gpt.py` | 输入 Token，输出词表 logits |
+| 10 | 训练实验 | `10-train-mini-gpt.py` | 在小文本上 overfit，验证 loss 能下降 |
+| 11 | 自回归生成 | `11-autoregressive-generation.py` | 实现逐 Token 生成 |
 
 ## 第一部分：注意力机制
 
@@ -58,10 +59,11 @@ python 02-transformer/02-feed-forward-network.py
 python 02-transformer/03-normalization.py
 python 02-transformer/04-encoder-layer.py
 python 02-transformer/05-decoder-layer.py
-python 02-transformer/06-transformer.py
+python 02-transformer/06-positional-encoding.py
+python 02-transformer/07-transformer.py
 ```
 
-运行后应看到输入输出都为 `[2, 8, 32]`。
+每个脚本都带有最小示例和形状断言，可按顺序单独运行。
 
 ## 学习时必须维护“形状账本”
 

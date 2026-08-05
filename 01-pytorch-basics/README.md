@@ -32,7 +32,7 @@
 | 11 | Checkpoint | 保存、恢复训练与加载最佳模型 | [11-checkpoint-and-resume.py](lessons/11-checkpoint-and-resume.py) |
 | 12 | CNN 基础 | 卷积、池化、展平和图像分类网络 | [12-conv2d-and-pooling.py](lessons/12-conv2d-and-pooling.py) |
 | 13 | 模型评估 | 混淆矩阵、分类指标和错误样本分析 | [13-confusion-matrix-analysis.py](lessons/13-confusion-matrix-analysis.py) |
-| 14 | 数据增强与归一化 | 区分训练/评估变换，理解图像标准化 | [14-data-augmentation-and-normalization.py](lessons/14-data-augmentation-and-normalization.py) |
+| 14 | 数据增强与归一化 | 随机增强、标准化、早停与训练曲线 | [14-data-augmentation-and-normalization.py](lessons/14-data-augmentation-and-normalization.py) |
 
 ## 完整项目
 
@@ -47,6 +47,8 @@
 5. 输出样本预测与置信度
 
 课程 13 会在这个模型的基础上继续生成混淆矩阵和高置信度错误样本。
+
+课程 14 进一步加入随机裁剪、翻转、旋转和归一化，并保存增强样本、训练曲线与测试预测，形成第二条完整实验链路。
 
 ## 练习区
 
@@ -79,6 +81,10 @@ python 01-pytorch-basics/lessons/14-data-augmentation-and-normalization.py
 - [原始混淆矩阵](outputs/confusion_matrix.png)
 - [归一化混淆矩阵](outputs/normalized_confusion_matrix.png)
 - [高置信度错误样本](outputs/wrong_predictions.png)
+- [数据增强样本](outputs/data-augmentation/augmented_samples.png)
+- [训练与验证损失曲线](outputs/data-augmentation/loss_curve.png)
+- [训练与验证准确率曲线](outputs/data-augmentation/accuracy_curve.png)
+- [数据增强模型预测](outputs/data-augmentation/test_predictions.png)
 
 当前 FashionMNIST 测试结果：
 
