@@ -31,8 +31,8 @@
 | 05 | Decoder Layer | [05-decoder-layer.py](05-decoder-layer.py) | 已实现因果自注意力、交叉注意力与 Decoder-only 变体 |
 | 06 | 正弦位置编码 | [06-positional-encoding.py](06-positional-encoding.py) | 已用 NumPy 实现并验证位置 0 的编码 |
 | 07 | 完整 Transformer | [07-transformer.py](07-transformer.py) | 已串联 Embedding、位置编码、Encoder 和 Decoder |
-| 08 | RoPE | `08-rope.py` | 理解旋转维度，并验证形状保持不变 |
-| 09 | Causal LM | `09-mini-gpt.py` | 输入 Token，输出词表 logits |
+| 08 | RoPE | [08-rope.py](08-rope.py) | 已旋转 Q/K，并验证形状、范数和梯度 |
+| 09 | Causal LM | [09-mini-gpt.py](09-mini-gpt.py) | 已实现 Mini GPT 前向、loss、因果性检查和最小生成 |
 | 10 | 训练实验 | `10-train-mini-gpt.py` | 在小文本上 overfit，验证 loss 能下降 |
 | 11 | 自回归生成 | `11-autoregressive-generation.py` | 实现逐 Token 生成 |
 
@@ -50,6 +50,8 @@
 - BatchNorm 与 LayerNorm 对比
 - Pre-Norm Encoder/Decoder Layer
 - 教学版 Encoder-Decoder Transformer
+- Rotary Position Embedding
+- Decoder-only Mini GPT 与 Causal LM Loss
 
 从仓库根目录运行：
 
@@ -61,9 +63,53 @@ python 02-transformer/04-encoder-layer.py
 python 02-transformer/05-decoder-layer.py
 python 02-transformer/06-positional-encoding.py
 python 02-transformer/07-transformer.py
+python 02-transformer/08-rope.py
+python 02-transformer/09-mini-gpt.py
 ```
 
 每个脚本都带有最小示例和形状断言，可按顺序单独运行。
+
+## 第 08 章：RoPE
+
+RoPE 将每两个相邻特征看作二维坐标，并按照 token 的位置旋转 Query 和 Key：
+
+```text
+x_even' = x_even × cos(θ) - x_odd × sin(θ)
+x_odd'  = x_even × sin(θ) + x_odd × cos(θ)
+```
+
+需要记住：
+
+- RoPE 应用于注意力的 Q 和 K，而不是直接加到 token embedding
+- 每个注意力头的维度必须是偶数，才能两两配对旋转
+- 位置 0 的旋转角为 0，因此向量保持不变
+- 旋转不会改变向量范数
+- Q 与 K 的点积会自然包含相对位置差
+
+## 第 09 章：Mini GPT
+
+Decoder-only Causal LM 的主要数据流：
+
+```text
+token_ids [B, T]
+  → Token Embedding [B, T, D]
+  → N × Transformer Block
+  → RMSNorm
+  → LM Head
+  → logits [B, T, V]
+```
+
+本章实现了：
+
+- QKV 联合投影、多头拆分与因果掩码
+- 在每层注意力中应用 RoPE
+- RMSNorm、SwiGLU、Pre-Norm 与残差连接
+- Token Embedding 与 LM Head 权重共享
+- 输入和标签右移一位后的 Cross-Entropy Loss
+- 修改未来 token 不影响过去 logits 的因果性测试
+- 基于 temperature 与 top-k 的逐 token 采样
+
+随机初始化模型只能用于验证数据流；生成有意义的文本需要在第 10 章加入训练。
 
 ## 学习时必须维护“形状账本”
 
@@ -131,13 +177,14 @@ projects/01-mini-gpt/
 - [x] Causal Mask
 - [x] Token Embedding
 - [x] Positional Encoding
-- [ ] RoPE
+- [x] RoPE
 - [x] LayerNorm
-- [ ] RMSNorm
+- [x] RMSNorm
 - [x] Feed-Forward Network
 - [x] Encoder / Decoder Block
 - [x] Encoder-Decoder Transformer 前向传播
-- [ ] Mini GPT 训练与生成
+- [x] Mini GPT 前向、Loss 与最小生成
+- [ ] Mini GPT 训练实验
 - [ ] 关键组件自动化测试
 
 ## 权威资料
