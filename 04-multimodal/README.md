@@ -23,13 +23,33 @@
 
 | 顺序 | 学习内容 | 建议代码文件 | 完成标准 |
 | ---: | --- | --- | --- |
-| 01 | 图像预处理 | `lessons/01-image-preprocessing.py` | 能解释 resize、normalize 和 batch 维度 |
+| 01 | 图像预处理 | [lessons/01-image-preprocessing.py](lessons/01-image-preprocessing.py) | 已实现 resize、normalize、反归一化和 batch 维度 |
 | 02 | Patch Embedding | `lessons/02-patch-embedding.py` | 手写图片分块与线性投影，打印所有形状 |
 | 03 | Vision Transformer | `lessons/03-vision-transformer.py` | 理解 CLS Token、位置编码和 Encoder 输出 |
 | 04 | 图文对齐 | `lessons/04-clip-basics.py` | 理解图像/文本向量与相似度 |
 | 05 | 多模态处理器 | `lessons/05-multimodal-processor.py` | 使用 Processor 同时处理图片和文字 |
 | 06 | 图文对话 | `lessons/06-image-text-to-text.py` | 正确运行多模态对话模板和生成流程 |
 | 07 | 批量评测 | `lessons/07-multimodal-evaluation.py` | 保存图片 ID、问题、输出、答案和错误类型 |
+
+## 第 01 章：图像预处理
+
+运行：
+
+```bash
+python 04-multimodal/lessons/01-image-preprocessing.py
+```
+
+需要持续跟踪的形状与数值变化：
+
+```text
+原始图片:    [C, H, W], uint8, [0, 255]
+Resize 后:   [C, 224, 224]
+浮点化后:    [C, 224, 224], float32, [0, 1]
+Normalize:   (pixel - mean) / std
+组成 Batch:  [B, C, 224, 224]
+```
+
+课程使用通用 ImageNet 统计量演示原理。加载真实预训练视觉模型时，应使用模型配套的 `AutoImageProcessor` 或 `AutoProcessor`，不要自行假设图片尺寸、均值和标准差。
 
 ## 建议练习任务
 
@@ -83,6 +103,7 @@ projects/01-multimodal-evaluation/
 
 ## 完成清单
 
+- [x] 能解释 Resize、Normalize、反归一化和 Batch 维度
 - [ ] 手写 Patch Embedding 并验证形状
 - [ ] 能解释 ViT 的输入和输出
 - [ ] 能使用 AutoProcessor 构造多模态输入

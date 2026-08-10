@@ -23,14 +23,33 @@
 
 | 顺序 | 学习内容 | 建议代码文件 | 完成标准 |
 | ---: | --- | --- | --- |
-| 01 | Hub、配置与缓存 | `lessons/01-model-and-config.py` | 能打印模型类型、词表大小、层数和隐藏维度 |
-| 02 | Tokenizer | `lessons/02-tokenizer.py` | 能解释编码、解码、Padding、Truncation 和特殊 Token |
+| 00 | Pipeline 快速入门 | [lessons/00-pipeline-quickstart.py](lessons/00-pipeline-quickstart.py) | 已用显式模型完成情感分类 |
+| 01 | Hub、配置与缓存 | [lessons/01-model-and-config.py](lessons/01-model-and-config.py) | 已打印模型类型、词表大小、层数和隐藏维度 |
+| 02 | Tokenizer | [lessons/02-tokenizer.py](lessons/02-tokenizer.py) | 已完成编码、批量解码、Padding、Truncation 和特殊 Token |
 | 03 | Chat Template | `lessons/03-chat-template.py` | 能把 `messages` 正确转换为模型训练时使用的格式 |
 | 04 | Causal LM 推理 | `lessons/04-causal-lm-inference.py` | 能从 logits 到生成文本走通完整流程 |
 | 05 | 生成参数 | `lessons/05-generation-config.py` | 比较 greedy、sampling、temperature、top-p 的差异 |
 | 06 | Datasets | `lessons/06-datasets.py` | 完成加载、查看、`map`、`filter` 和划分 |
 | 07 | 批量推理 | `lessons/07-batch-inference.py` | 对一批 Prompt 推理并保存 JSONL 结果 |
 | 08 | 基础评测 | `lessons/08-evaluation.py` | 实现答案抽取、Exact Match 和错误样本保存 |
+
+## 当前课程如何运行
+
+```bash
+python 03-huggingface/lessons/00-pipeline-quickstart.py
+python 03-huggingface/lessons/01-model-and-config.py
+python 03-huggingface/lessons/02-tokenizer.py
+```
+
+第一次运行会从 Hugging Face Hub 下载模型资源，之后会复用本地缓存。课程 01 只读取体积较小的配置文件；课程 00 会下载情感分类模型权重。
+
+当前三个脚本依次回答：
+
+- Pipeline 如何封装预处理、模型前向与后处理
+- `config.json` 能告诉我们哪些模型结构信息
+- Token、Token ID、`input_ids` 和 `attention_mask` 如何对应
+- 单条 `decode()` 与批量 `batch_decode()` 应该如何使用
+- Padding 和 Truncation 为什么只影响批处理后的序列布局
 
 ## 建议每天怎么学
 
@@ -105,7 +124,9 @@ projects/01-text-generation-baseline/
 
 ## 完成清单
 
-- [ ] 能独立加载 tokenizer、config 和 causal LM
+- [x] 能独立加载 Pipeline、config 和 tokenizer
+- [x] 能解释编码、批量解码、Padding 和 Attention Mask
+- [ ] 能独立加载 causal LM
 - [ ] 能解释一次前向传播的主要张量
 - [ ] 能正确应用 Chat Template
 - [ ] 能比较至少三种生成设置
