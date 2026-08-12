@@ -23,6 +23,9 @@ wandb/
 logs/
 *.log
 
+# Generated experiment outputs
+03-huggingface/outputs/
+
 # Jupyter
 .ipynb_checkpoints/
 
