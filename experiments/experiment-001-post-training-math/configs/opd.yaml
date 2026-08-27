@@ -1,0 +1,13 @@
+method: on_policy_distillation
+student_model: outputs/post-training-math/sft_seed42
+teacher_model: Qwen/Qwen2.5-Math-7B-Instruct
+dataset: gsm8k_prompt_train
+data_seed: 42
+seed: 42
+rollout_temperature: 0.9
+max_new_tokens: 512
+online_ratio: 1.0
+distillation_temperature: 1.0
+learning_rate: 0.000005
+max_steps: 200
+output_dir: outputs/post-training-math/opd_seed42

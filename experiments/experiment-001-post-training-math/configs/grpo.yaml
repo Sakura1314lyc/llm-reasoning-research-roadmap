@@ -1,0 +1,14 @@
+method: grpo
+model_name_or_path: outputs/post-training-math/sft_seed42
+reference_model: outputs/post-training-math/sft_seed42-merged
+dataset: gsm8k_prompt_train
+data_seed: 42
+seed: 42
+num_generations: 4
+temperature: 0.9
+max_completion_length: 512
+beta: 0.04
+learning_rate: 0.000005
+max_steps: 200
+rewards: accuracy,format,length
+output_dir: outputs/post-training-math/grpo_seed42

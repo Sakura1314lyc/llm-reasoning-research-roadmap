@@ -1,0 +1,16 @@
+method: sft
+model_name_or_path: Qwen/Qwen2.5-Math-1.5B
+dataset: gsm8k_clean_train
+data_seed: 42
+seed: 42
+finetuning_type: lora
+lora_rank: 16
+lora_alpha: 32
+lora_target: q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj
+learning_rate: 0.0002
+num_train_epochs: 2
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+max_length: 1024
+bf16: true
+output_dir: outputs/post-training-math/sft_seed42

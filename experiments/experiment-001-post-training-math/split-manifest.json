@@ -1,0 +1,12 @@
+{
+  "status": "template-not-generated",
+  "source": "gsm8k",
+  "data_seed": 42,
+  "source_sha256": null,
+  "splits": {
+    "train": {"count": null, "indices_sha256": null},
+    "dev_select": {"count": null, "indices_sha256": null},
+    "dev_audit": {"count": null, "indices_sha256": null}
+  },
+  "note": "真实准备数据时填写；不得用 test 调参。"
+}

@@ -1,6 +1,6 @@
 # 阶段 5：LLM Reasoning 与模型评测
 
-这一阶段的重点不是“让模型多说几步”，而是建立公平、可复现、可分析的推理实验流程。
+推理实验不能只看模型有没有写出一长串过程。这里更关心的是：对照是否公平、结果能不能复现、答错以后能不能查出原因。
 
 建议用时：**7 天，每天 3–4 小时**。
 
@@ -10,7 +10,7 @@
 - 能保存逐样本预测与生成参数
 - 理解基本概率采样和随机种子
 
-## 完成后应该具备的能力
+## 这部分做完以后
 
 - 建立 Zero-shot、Few-shot 和 CoT 基线
 - 实现 Self-Consistency 多样本投票
@@ -19,21 +19,23 @@
 - 生成公平的实验对比表
 - 对结论给出样本级证据
 
-## 推荐学习顺序
+## 先把评测链路跑通
 
 | 顺序 | 学习内容 | 建议代码文件 | 完成标准 |
 | ---: | --- | --- | --- |
-| 01 | Zero-shot 基线 | `lessons/01-zero-shot.py` | 固定 Prompt 与生成参数，得到第一版准确率 |
-| 02 | Few-shot Prompt | `lessons/02-few-shot.py` | 控制示例数量和顺序，只改变一个变量 |
-| 03 | Chain-of-Thought | `lessons/03-chain-of-thought.py` | 比较直接回答和推理提示 |
-| 04 | Self-Consistency | `lessons/04-self-consistency.py` | 多次采样、答案归一化和多数投票 |
-| 05 | 答案抽取 | `lessons/05-answer-extraction.py` | 为数字、分数和选项实现稳定抽取 |
-| 06 | 自动评测 | `lessons/06-evaluator.py` | 输出正确率、无效回答率和逐题结果 |
-| 07 | 错误分类 | `lessons/07-error-analysis.py` | 为失败样本建立可复用分类规则 |
+| 01 | Prompt 与 API | [lessons/01-prompting-and-api.py](lessons/01-prompting-and-api.py) | 已构造 Zero-shot/Few-shot 与兼容 API 请求 |
+| 02 | Few-shot Prompt | [lessons/02-few-shot.py](lessons/02-few-shot.py) | 已控制示例数量和顺序 |
+| 03 | Chain-of-Thought | [lessons/03-chain-of-thought.py](lessons/03-chain-of-thought.py) | 已构造直接回答与 CoT 对照 |
+| 04 | Self-Consistency | [lessons/04-self-consistency.py](lessons/04-self-consistency.py) | 已实现答案归一化和多数投票 |
+| 05 | 答案抽取 | [lessons/05-answer-extraction.py](lessons/05-answer-extraction.py) | 已处理整数、小数、分数与严格格式 |
+| 06 | 自动评测 | [lessons/06-evaluator.py](lessons/06-evaluator.py) | 已输出准确率、有效率、长度和逐题结果 |
+| 07 | 错误分类 | [lessons/07-error-analysis.py](lessons/07-error-analysis.py) | 已定义可复用失败分类规则 |
+
+数据集对照见 [GSM8K、MATH、MathVista 与 WeMath](BENCHMARKS.md)。非 LLM 选读见 [Rationale Learning 与可信图学习](RATIONALE-LEARNING.md)。
 
 ## 第一套标准实验
 
-建议先使用 GSM8K 的小型固定子集，例如 100–300 题：
+第一轮用 GSM8K 的固定小子集就行，例如 100–300 题：
 
 | 实验 | Prompt | 采样 | 目的 |
 | --- | --- | --- | --- |
@@ -44,7 +46,7 @@
 
 除目标变量外，模型、数据、答案抽取、最大生成长度等设置必须相同。
 
-## 推荐结果格式
+## 每条结果都留下什么
 
 ```json
 {
@@ -59,7 +61,7 @@
 }
 ```
 
-## 错误分类建议
+## 答错以后怎么分
 
 - `format_error`：无法抽取答案
 - `arithmetic_error`：算术步骤错误
@@ -94,12 +96,12 @@ experiments/experiment-001-prompting/
 
 ## 完成清单
 
-- [ ] 完成四组公平 Prompt 实验
-- [ ] 答案抽取经过人工抽样验证
-- [ ] 保存所有逐样本原始输出
-- [ ] 实现 Self-Consistency
-- [ ] 分析至少 30 个失败案例
-- [ ] 形成完整实验报告
+- [x] 已实现四组公平 Prompt 实验所需组件
+- [x] 答案抽取覆盖整数、小数、分数和无效回答
+- [x] 已定义逐样本原始输出记录格式
+- [x] 已实现 Self-Consistency
+- [x] 已建立失败案例分类体系
+- [x] 已提供实验报告目录与必答问题
 
 ## 权威资料
 

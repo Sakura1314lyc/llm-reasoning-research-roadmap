@@ -1,6 +1,6 @@
 # 阶段 2：Transformer 原理与手写实现
 
-这一阶段从注意力机制开始，逐步实现一个可解释、可测试的简化 Transformer，并为加载真实大语言模型打下基础。
+这里不急着调用现成模型。先从注意力开始，把 Transformer 一层层写出来；代码能解释、能测试以后，再接真实的大语言模型。
 
 建议用时：**7–10 天，每天 3–4 小时**。
 
@@ -10,7 +10,7 @@
 - 熟悉矩阵乘法、Softmax 和基本概率
 - 能持续跟踪张量形状
 
-## 完成后应该具备的能力
+## 这一阶段要拿下的内容
 
 - 解释 Q、K、V 和缩放点积注意力
 - 手写 Multi-Head Attention 与 Causal Mask
@@ -19,8 +19,11 @@
 - 组合一个 Pre-Norm Transformer Block
 - 实现简化版 Causal Language Model
 - 为关键组件编写形状与因果性测试
+- 区分 BERT、GPT、LLaMA、Qwen 及 Base/Instruct 模型
 
-## 推荐学习顺序
+典型架构对照见 [BERT、GPT、LLaMA 与 Qwen 架构笔记](MODEL-FAMILIES.md)。
+
+## 动手顺序
 
 | 顺序 | 学习内容 | 建议代码文件 | 完成标准 |
 | ---: | --- | --- | --- |
@@ -84,7 +87,7 @@ x_even' = x_even × cos(θ) - x_odd × sin(θ)
 x_odd'  = x_even × sin(θ) + x_odd × cos(θ)
 ```
 
-需要记住：
+这里容易混淆的地方有几个：
 
 - RoPE 应用于注意力的 Q 和 K，而不是直接加到 token embedding
 - 每个注意力头的维度必须是偶数，才能两两配对旋转
@@ -195,7 +198,7 @@ lm logits:       [B, T, V]
 
 每实现一个模块，都在代码注释中写清输入、变换和输出形状。
 
-## 推荐测试
+## 测试别省
 
 为每个模块至少测试：
 
@@ -230,7 +233,7 @@ lm logits:       [B, T, V]
 5. 反向传播与参数更新
 6. 自回归生成
 
-## 常见误区
+## 容易踩的坑
 
 - `dim` 必须能被 `n_heads` 整除
 - Softmax 应在 key 序列维度上计算
@@ -261,7 +264,7 @@ lm logits:       [B, T, V]
 - [x] Greedy / Temperature / Top-k / Top-p 生成
 - [x] 关键组件自动化测试
 
-## 阶段完成标准
+## 学完后自查
 
 完成本目录后，应该能够独立回答并演示：
 
@@ -273,6 +276,7 @@ lm logits:       [B, T, V]
 - Causal LM 的输入、右移标签、logits 与 loss 如何对齐
 - 训练模式与生成模式的数据流有何不同
 - Greedy、Top-k 和 Top-p 会怎样改变生成结果
+- BERT Encoder-only、Encoder-Decoder 与 GPT/LLaMA/Qwen Decoder-only 的差异
 
 ## 权威资料
 

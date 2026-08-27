@@ -1,6 +1,6 @@
 # 阶段 8：GRPO 强化学习
 
-GRPO（Group Relative Policy Optimization）针对同一 Prompt 采样一组回答，用组内相对奖励估计优势，从而优化策略模型。
+GRPO（Group Relative Policy Optimization）会让同一个 Prompt 生成一组回答，再用组内相对奖励算优势。课程从这一步开始，一直写到策略更新、KL 约束和训练诊断。
 
 建议用时：**7–10 天，每天 3–4 小时**。
 
@@ -11,7 +11,7 @@ GRPO（Group Relative Policy Optimization）针对同一 Prompt 采样一组回�
 - 有经过单元测试的答案抽取与奖励函数
 - 能记录 rollout、reward 和训练配置
 
-## 完成后应该具备的能力
+## 学完后要能自己解释
 
 - 解释 GRPO 与 PPO 的核心差异
 - 为可验证任务实现奖励函数
@@ -19,18 +19,26 @@ GRPO（Group Relative Policy Optimization）针对同一 Prompt 采样一组回�
 - 监控 reward、KL、长度和格式等指标
 - 识别 reward hacking 与训练崩溃
 - 与 SFT/OPD 基线公平比较
+- 能把冷启动 SFT、推理 RL、拒绝采样和通用对齐串成 R1-like 训练路线
 
-## 推荐学习顺序
+SFT 和推理 RL 怎么串起来，单独放在 [R1-like 推理模型训练路线](R1-LIKE-TRAINING.md) 里。
+
+## 先看 Reward，再看更新
 
 | 顺序 | 学习内容 | 建议代码文件 | 完成标准 |
 | ---: | --- | --- | --- |
-| 01 | 强化学习基础 | `lessons/01-policy-gradient.py` | 理解策略梯度、reward 和 advantage |
-| 02 | PPO 到 GRPO | `lessons/02-ppo-vs-grpo.md` | 能解释 critic、组内基线与 KL |
-| 03 | Group Sampling | `lessons/03-group-rollout.py` | 同一 Prompt 生成多个候选并分组保存 |
-| 04 | 奖励函数 | `lessons/04-reward-functions.py` | 为正确性和格式分别编写奖励与测试 |
-| 05 | Advantage | `lessons/05-group-advantage.py` | 手算组内标准化奖励 |
-| 06 | GRPOTrainer | `lessons/06-grpo-trainer.py` | 用极小配置跑通训练与 checkpoint |
-| 07 | 训练诊断 | `lessons/07-training-diagnostics.py` | 可视化 reward、KL、长度和准确率 |
+| 01 | 强化学习基础 | [01-reinforcement-learning-basics.py](01-reinforcement-learning-basics.py) | 已手写 Masked Policy Gradient |
+| 02 | PPO 到 GRPO | [02-ppo-vs-grpo.md](02-ppo-vs-grpo.md) | 已对比 Critic、组内基线、Clipping 与 KL |
+| 03 | Group Sampling | [03-group-rollout.py](03-group-rollout.py) | 已让同一 Prompt 生成多个候选 |
+| 04 | 奖励函数 | [reward_functions.py](reward_functions.py) / [测试](tests/test_rewards.py) | 已覆盖正确性、格式、分数等价与长度边界 |
+| 05 | Advantage | [05-group-advantage.py](05-group-advantage.py) | 已计算组内标准化奖励 |
+| 06 | Token Logprob | [06-token-logprob.py](06-token-logprob.py) | 已在 completion Token 上读取策略概率 |
+| 07 | Policy Gradient | [07-policy-gradient.py](07-policy-gradient.py) | 已连接 rollout、logprob 与 advantage |
+| 08 | GRPO Loss | [08-loss.py](08-loss.py) | 已实现完成序列上的策略目标 |
+| 09 | KL 正则 | [09-KL-regularization.py](09-KL-regularization.py) | 已加入 reference policy 约束 |
+| 10 | Mini GRPO Step | [10-mini-grpo-step.py](10-mini-grpo-step.py) | 已串联 rollout、reward、advantage、loss 和更新 |
+| 11 | TRL GRPOTrainer | [11-TRL-grpo-trainer.py](11-TRL-grpo-trainer.py) | 已跑通框架训练与 completion 日志 |
+| 12 | 训练诊断 | [12-training-diagnostics.py](12-training-diagnostics.py) | 已汇总 reward、KL、长度和零方差组 |
 
 ## 奖励函数先于训练
 
@@ -50,7 +58,7 @@ GRPO（Group Relative Policy Optimization）针对同一 Prompt 采样一组回�
 
 如果奖励函数不可靠，GRPO 只会更快地优化错误目标。
 
-## 最小可行实验
+## 先跑一个小实验
 
 首次实验建议：
 
@@ -88,7 +96,7 @@ experiments/experiment-004-grpo/
 
 最终至少比较：Base/Instruct、SFT、SFT+GRPO 三组。
 
-## 常见误区
+## Reward 涨了也别急着下结论
 
 - 组内 reward 全相同会缺少有效的相对学习信号
 - 格式奖励过强可能导致 reward hacking
@@ -99,13 +107,14 @@ experiments/experiment-004-grpo/
 
 ## 完成清单
 
-- [ ] 能解释 GRPO 的组内相对优势
-- [ ] 奖励函数有边界案例测试
-- [ ] 能检查完整 rollout 数据流
-- [ ] 跑通短步数 GRPO smoke test
-- [ ] 记录 reward、KL、长度和吞吐
-- [ ] 与 SFT 基线公平比较
-- [ ] 分析 reward hacking 和失败案例
+- [x] 能解释 GRPO 的组内相对优势
+- [x] 奖励函数有边界案例测试
+- [x] 能检查完整 rollout 数据流
+- [x] 跑通短步数 TRL GRPO smoke test
+- [x] 已定义 reward、KL、长度和组内方差诊断
+- [x] 已在任务一协议中规定与 SFT 基线公平比较
+- [x] 已列出 reward hacking、截断与格式失败分析
+- [x] 已梳理 R1-like 推理模型的分阶段训练与复现风险
 
 ## 权威资料
 

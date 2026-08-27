@@ -1,6 +1,6 @@
 # 阶段 9：LLM Agent、Skill、MCP 与软件测试
 
-这一阶段把模型从“生成文本”扩展为“观察环境、选择工具、执行动作、检查结果并继续”的可测试系统。
+到了这一阶段，模型不再只是生成一段文本。它要观察当前状态、选择工具、执行动作，再看结果决定下一步；整个过程还得能测试和复盘。
 
 建议用时：**7–10 天，每天 3–4 小时**。
 
@@ -11,7 +11,7 @@
 - 能使用 pytest 编写基本测试
 - 理解外部工具调用会产生真实副作用
 
-## 完成后应该具备的能力
+## 做到这些才算跑通
 
 - 实现基本 Agent Loop
 - 为工具设计清晰 Schema、类型和错误返回
@@ -21,21 +21,23 @@
 - 记录 Agent 轨迹并分析失败原因
 - 对文件、网络和外部操作设置安全边界
 
-## 推荐学习顺序
+## 先写循环，再接 MCP
 
 | 顺序 | 学习内容 | 建议代码文件 | 完成标准 |
 | ---: | --- | --- | --- |
-| 01 | Agent Loop | `lessons/01-agent-loop.py` | 完成 observe → decide → act → observe 循环 |
-| 02 | Tool Schema | `lessons/02-tool-schema.py` | 为函数定义参数、返回值、异常和文档 |
-| 03 | Tool Execution | `lessons/03-tool-executor.py` | 能验证输入、执行工具并序列化结果 |
-| 04 | Memory/State | `lessons/04-agent-state.py` | 区分会话状态、长期记忆和外部资源 |
-| 05 | Planning | `lessons/05-planning.py` | 把复杂任务拆为可验证的有限步骤 |
-| 06 | MCP Server | `lessons/06-mcp-server.py` | 暴露一个只读 Resource 和一个 Tool |
-| 07 | Skill | `lessons/07-reusable-skill.md` | 把稳定流程写成带触发条件和验证步骤的说明 |
-| 08 | Testing | `lessons/08-agent-testing.py` | 测试工具、循环终止、错误处理和权限边界 |
-| 09 | Trajectory Analysis | `lessons/09-trajectory-analysis.py` | 对轨迹做失败分类和成本统计 |
+| 01 | Agent Loop | [lessons/01-agent-loop.py](lessons/01-agent-loop.py) | 已完成有限步 observe → decide → act 循环 |
+| 02 | Tool Schema | [lessons/02-tool-schema.py](lessons/02-tool-schema.py) | 已定义参数、返回值、副作用和附加字段限制 |
+| 03 | Tool Execution | [lessons/03-tool-executor.py](lessons/03-tool-executor.py) | 已实现白名单、输入验证与结构化错误 |
+| 04 | Memory/State | [lessons/04-agent-state.py](lessons/04-agent-state.py) | 已区分会话状态、长期记忆和外部资源 |
+| 05 | Planning | [lessons/05-planning.py](lessons/05-planning.py) | 已拆分 inspect/change/verify/report 步骤 |
+| 06 | MCP Server | [lessons/06-mcp-server.py](lessons/06-mcp-server.py) | 已暴露只读 Resource 和 Tool |
+| 07 | Skill | [lessons/07-reusable-skill.md](lessons/07-reusable-skill.md) | 已写明触发、输入、步骤、验证和安全边界 |
+| 08 | Testing | [lessons/08-agent-testing.py](lessons/08-agent-testing.py) | 已测试路径越界、循环终止与工具选择 |
+| 09 | Trajectory Analysis | [lessons/09-trajectory-analysis.py](lessons/09-trajectory-analysis.py) | 已统计成功率、步骤与失败类型 |
 
-## 第一个 Agent 不要做太复杂
+OpenClaw、Hermes、Codex、Claude Code 与 Harness 的实践框架见 [工具与 Harness 笔记](TOOLING-AND-HARNESS.md)。
+
+## 第一个 Agent 越简单越好
 
 建议实现一个“本地学习仓库助手”，只提供只读能力：
 
@@ -44,9 +46,9 @@
 - 搜索关键词
 - 汇总学习进度
 
-确认循环、日志与测试稳定后，再增加写文件或网络工具。
+先把循环、日志和测试跑稳，再考虑写文件或联网工具。
 
-## 工具设计原则
+## 工具要把边界写清楚
 
 每个工具应包含：
 
@@ -60,7 +62,7 @@
 
 不要用一个“万能 shell 工具”代替边界清晰的工具集合。
 
-## MCP 学习顺序
+## MCP 从只读能力开始
 
 1. 理解 Client、Server 与 capability negotiation
 2. 实现只读 Resource
@@ -109,7 +111,7 @@ projects/01-research-agent/
 - 未终止或重复循环次数
 - 各类失败占比
 
-## 安全原则
+## 权限宁可先收紧
 
 - 默认只读；写入、删除、发送消息等能力单独授权
 - 外部内容可能包含 Prompt Injection，不能直接视为可信指令
@@ -120,13 +122,13 @@ projects/01-research-agent/
 
 ## 完成清单
 
-- [ ] 手写一个有限步 Agent Loop
-- [ ] 至少实现三个边界清晰的工具
-- [ ] 完成只读 MCP Server
-- [ ] 为 MCP Tool 编写测试
-- [ ] 编写一个可复用 Skill
-- [ ] 建立 20 个任务的回归集
-- [ ] 完成轨迹与安全失败分析
+- [x] 手写有限步 Agent Loop
+- [x] 实现列阶段、读文本、搜关键词三个只读工具
+- [x] 完成只读 MCP Resource 与 Tool 示例
+- [x] 为工具、循环终止和路径边界编写测试
+- [x] 编写可复用 Skill
+- [x] 给出 20 个固定任务的回归指标规范
+- [x] 完成轨迹与安全失败分类
 
 ## 权威资料
 

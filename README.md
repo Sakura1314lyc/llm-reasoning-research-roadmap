@@ -1,10 +1,10 @@
 # LLM Reasoning Research Roadmap
 
-> 从深度学习基础出发，系统学习大语言模型、多模态推理、模型后训练与 LLM Agent。
+> 从深度学习基础一路学到大语言模型、多模态推理、模型后训练和 LLM Agent。
 
-本仓库用于记录我的人工智能科研入门过程，包括学习笔记、论文阅读、代码实现和实验结果。
+这个仓库用来记录我的人工智能科研学习过程。笔记、论文阅读、代码和实验结果都放在这里，之后复习时不用再到处找。
 
-计划在 **8 周**内，每天学习约 **4 小时**，逐步建立以下能力：
+内容按 **8 周、每天约 4 小时** 排列。01–09 的课程已经整理齐，可以从头学习，也可以直接挑薄弱的部分复习。
 
 * 理解神经网络、Transformer 和大语言模型的核心原理
 * 使用 PyTorch 和 Hugging Face 完成模型训练与推理
@@ -14,28 +14,30 @@
 
 ---
 
-## 📌 当前进度
+## 课程完成情况
 
 | 阶段 | 学习方向 | 状态 | 当前成果 |
 | ---: | --- | --- | --- |
-| 1 | [PyTorch 与深度学习基础](01-pytorch-basics/README.md) | 🟡 进行中 | 完成标准训练流程、CNN、FashionMNIST 与错误分析 |
-| 2 | [Transformer 原理与手写实现](02-transformer/README.md) | 🟡 进行中 | 完成缩放点积注意力、多头注意力和因果掩码 |
-| 3 | [Hugging Face 与大语言模型](03-huggingface/README.md) | ⚪ 未开始 | — |
-| 4 | [视觉与多模态大模型](04-multimodal/README.md) | ⚪ 未开始 | — |
-| 5 | [LLM Reasoning 与模型评测](05-llm-reasoning/README.md) | ⚪ 未开始 | — |
-| 6 | [SFT 监督微调](06-sft/README.md) | ⚪ 未开始 | — |
-| 7 | [OPD 在线策略蒸馏](07-opd/README.md) | ⚪ 未开始 | — |
-| 8 | [GRPO 强化学习](08-grpo/README.md) | ⚪ 未开始 | — |
-| 9 | [LLM Agent、Skill、MCP 与软件测试](09-agents/README.md) | ⚪ 未开始 | — |
+| 1 | [PyTorch 与深度学习基础](01-pytorch-basics/README.md) | 已整理 | PyTorch、CNN/ResNet、RNN、GNN、GPU 与科研检索 |
+| 2 | [Transformer 原理与手写实现](02-transformer/README.md) | 已整理 | Attention、RoPE、Mini GPT、训练、生成与模型家族 |
+| 3 | [Hugging Face 与大语言模型](03-huggingface/README.md) | 已整理 | Transformers、Datasets、生成、SFT 数据链路与 LoRA |
+| 4 | [视觉与多模态大模型](04-multimodal/README.md) | 已整理 | ViT、CLIP、LLaVA、Qwen-VL 与多模态评测 |
+| 5 | [LLM Reasoning 与模型评测](05-llm-reasoning/README.md) | 已整理 | Prompt、CoT、Self-Consistency、答案抽取与基准评测 |
+| 6 | [SFT 监督微调](06-sft/README.md) | 已整理 | 数据校验、Label Mask、LoRA/QLoRA 与 Adapter 评测 |
+| 7 | [OPD 在线策略蒸馏](07-opd/README.md) | 已整理 | KD、Rollout、教师反馈、On-policy loss 与 GKD |
+| 8 | [GRPO 强化学习](08-grpo/README.md) | 已整理 | Reward、Group Advantage、策略损失、KL 与 TRL |
+| 9 | [LLM Agent、Skill、MCP 与软件测试](09-agents/README.md) | 已整理 | Loop、Planning、Tool、Memory、Skill、MCP 与测试 |
 
-### 最近完成
+每一项大纲具体落在哪个文件，可以看 [学习大纲覆盖表](CURRICULUM-COVERAGE.md)。“已整理”只说明课程和代码入口已经写好。凡是需要 GPU 或 API 的实验，仍以真正跑出来的记录为准。
 
-* [PyTorch 主线课程 01–13](01-pytorch-basics/README.md)
-* [FashionMNIST CNN 完整项目](01-pytorch-basics/projects/01-fashion-mnist-cnn.py)
-* [FashionMNIST 混淆矩阵与错误样本分析](01-pytorch-basics/lessons/13-confusion-matrix-analysis.py)
-* [Transformer 多头注意力实现](02-transformer/01-multi-head-attention.py)
+### 最近整理
 
-### 记录入口
+* [01–09 完整课程与大纲覆盖表](CURRICULUM-COVERAGE.md)
+* [数学推理后训练任务：Base/SFT/OPD/GRPO](experiments/experiment-001-post-training-math/README.md)
+* [数学推理离线评测协议](experiments/experiment-001-post-training-math/PROTOCOL.md)
+* [Agent 工具、Harness 与测试路线](09-agents/README.md)
+
+### 平时从这里记录
 
 * [每日与每周学习笔记](notes/README.md)
 * [论文阅读指南](papers/README.md)
@@ -43,7 +45,7 @@
 
 ---
 
-## 🗺️ 学习路线
+## 学习路线
 
 ### 1. 深度学习基础
 
@@ -56,7 +58,7 @@
 * MLP、CNN、ResNet、RNN
 * GCN、GAT、GIN 等图神经网络
 
-阶段目标：
+学完这一段，要能做到：
 
 * 能够独立搭建完整的 PyTorch 训练流程
 * 能够分析模型的训练损失、验证准确率和过拟合现象
@@ -74,7 +76,7 @@
 * Transformer Encoder 与 Decoder
 * BERT、GPT、LLaMA、Qwen 等模型
 
-阶段目标：
+这一段过关时，应该能：
 
 * 能够解释 Transformer 中各个张量的形状
 * 能够手写简化版 Self-Attention 和 Transformer
@@ -90,7 +92,7 @@
 * Qwen-VL 系列
 * 图片描述、OCR、视觉问答和数学推理
 
-阶段目标：
+做到下面几件事，就可以继续往后学：
 
 * 理解视觉编码器、Projector 和语言模型之间的连接方式
 * 能够运行多模态模型并整理测试案例
@@ -106,7 +108,7 @@
 * GSM8K、MATH、MathVista、WeMath 等数据集
 * 答案抽取与自动评测
 
-阶段目标：
+这一部分最终要留下的是：
 
 * 建立统一的模型推理与评测流程
 * 比较不同 Prompt 方法对模型性能的影响
@@ -114,7 +116,7 @@
 
 ### 5. 模型后训练
 
-重点研究以下方法：
+后训练部分放在一起比较：
 
 * SFT：Supervised Fine-Tuning
 * OPD：On-Policy Distillation
@@ -160,7 +162,7 @@
 * Claude Code
 * pytest
 
-阶段目标：
+Agent 部分学到这里为止：
 
 * 实现一个基础工具调用 Agent
 * 配置一个可重复使用的 Skill
@@ -169,12 +171,12 @@
 
 ---
 
-## 📁 仓库结构
+## 仓库结构
 
 ```text
 llm-reasoning-research-roadmap/
 ├── 01-pytorch-basics/       # PyTorch 基础、练习、项目与分析结果
-│   ├── lessons/             # 编号主线课程（01–13）
+│   ├── lessons/             # 编号主线课程（01–19）
 │   ├── projects/            # 完整训练项目
 │   ├── practice/            # 小型知识点练习
 │   ├── python-review/       # Python 复习与环境检查
@@ -191,6 +193,7 @@ llm-reasoning-research-roadmap/
 ├── notes/                   # 每日笔记与每周总结
 ├── experiments/             # 正式实验结果与对比
 ├── requirements.txt         # Python 依赖
+├── CURRICULUM-COVERAGE.md   # 老师大纲与 01–09 的逐项映射
 ├── .gitignore               # Git 忽略规则
 ├── LICENSE                  # 开源许可证
 └── README.md                # 项目说明
@@ -198,9 +201,9 @@ llm-reasoning-research-roadmap/
 
 ---
 
-## 🛠️ 环境配置
+## 环境配置
 
-建议使用 Python 虚拟环境。
+最好单独建一个 Python 虚拟环境，避免课程依赖和其他项目打架。
 
 ### 1. 克隆仓库
 
@@ -256,7 +259,7 @@ if torch.cuda.is_available():
 
 ---
 
-## 📝 学习记录规范
+## 学习记录怎么写
 
 每日学习笔记统一记录在：
 
@@ -271,7 +274,7 @@ week01-day01.md
 week01-day02.md
 ```
 
-每日笔记建议包含：
+每天不必写成长文，把下面这些信息留住就够了：
 
 ```markdown
 # Week 1 Day 1
@@ -310,7 +313,7 @@ notes/weekly/
 
 ---
 
-## 📄 论文阅读规范
+## 论文笔记怎么写
 
 论文笔记统一存放在：
 
@@ -318,7 +321,7 @@ notes/weekly/
 papers/
 ```
 
-每篇论文建议按照以下结构整理：
+论文笔记可以沿用下面的结构，缺少的信息先留空：
 
 ```markdown
 # 论文标题
@@ -350,9 +353,9 @@ papers/
 
 ---
 
-## 🧪 实验记录规范
+## 实验记录怎么留
 
-每次正式实验都应保存：
+正式实验至少留下这些文件：
 
 ```text
 experiments/experiment-xxx/
@@ -383,7 +386,7 @@ experiments/experiment-xxx/
 
 ---
 
-## 🔐 安全说明
+## 不要提交的内容
 
 以下内容不应提交到 GitHub：
 
@@ -396,7 +399,7 @@ experiments/experiment-xxx/
 * 私有数据集
 * 个人隐私信息
 
-提交前建议执行：
+提交前先执行：
 
 ```bash
 git status
@@ -412,9 +415,9 @@ git push
 
 ---
 
-## 🎯 最终目标
+## 学完以后
 
-完成本学习计划后，希望能够：
+走完这条路线后，我希望自己能独立完成这些事：
 
 1. 理解 Transformer 和主流大语言模型的核心结构
 2. 独立使用 PyTorch 完成模型训练与评测
@@ -427,7 +430,7 @@ git push
 
 ---
 
-## 🙏 Acknowledgements
+## Acknowledgements
 
 本仓库的原始学习路线由课题组老师提供。
 
@@ -444,7 +447,7 @@ git push
 
 ---
 
-## 📜 License
+## License
 
 本仓库中由本人编写的代码和笔记采用 [MIT License](LICENSE)。
 

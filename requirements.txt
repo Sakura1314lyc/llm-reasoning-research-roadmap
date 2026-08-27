@@ -12,3 +12,5 @@ matplotlib
 pandas
 jupyter
 pytest
+pillow
+mcp

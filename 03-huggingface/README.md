@@ -1,6 +1,6 @@
 # 阶段 3：Hugging Face 与大语言模型
 
-这一阶段的目标是把阶段 2 的 Transformer 原理连接到真实开源模型：会加载、会生成、会处理数据、会评测，并能解释每一步的输入输出。
+阶段 2 写的是模型内部，这一阶段开始使用真实的开源模型。加载、生成、数据处理和评测都要亲手跑一遍，也要说得清每一步收到了什么、产出了什么。
 
 建议用时：**5–7 天，每天 3–4 小时**。
 
@@ -10,7 +10,7 @@
 - 理解 Token、Embedding、Attention 和 Causal Mask
 - 能读懂 `[batch, sequence, hidden]` 等张量形状
 
-## 完成后应该具备的能力
+## 做完后检查这些能力
 
 - 使用 `AutoTokenizer` 和 `AutoModelForCausalLM` 加载模型
 - 正确使用模型自带的 Chat Template
@@ -19,7 +19,7 @@
 - 完成批量推理，并记录可复现的生成参数
 - 在小型数据集上建立文本生成基线
 
-## 推荐学习顺序
+## 课程顺序
 
 | 顺序 | 学习内容 | 建议代码文件 | 完成标准 |
 | ---: | --- | --- | --- |
@@ -32,6 +32,10 @@
 | 06 | Dataset 与 Batch | [lessons/06-sft-dataset-and-batch.py](lessons/06-sft-dataset-and-batch.py) | 已实现动态 Padding，并屏蔽 Prompt 与 Padding 标签 |
 | 07 | 全参数 SFT | [lessons/07-full-parameter-sft.py](lessons/07-full-parameter-sft.py) | 已走通 Qwen 全参数训练循环并理解资源开销 |
 | 08 | LoRA SFT | [lessons/08-lora-sft.py](lessons/08-lora-sft.py) | 已配置 q/v 投影 LoRA、统计可训练参数并保存 Adapter |
+| 09 | 生成策略 | [lessons/09-generation-strategies.py](lessons/09-generation-strategies.py) | 已比较 Greedy、Temperature、Top-k 和 Top-p |
+| 10 | Dataset 工作流 | [lessons/10-datasets-workflow.py](lessons/10-datasets-workflow.py) | 已完成本地 Dataset 的切分与映射 |
+| 11 | JSONL 评测 | [lessons/11-jsonl-evaluation.py](lessons/11-jsonl-evaluation.py) | 已保存逐样本记录并计算准确率 |
+| 12 | 错误分析 | [lessons/12-error-analysis.py](lessons/12-error-analysis.py) | 已按错误类型汇总失败样本 |
 
 ## 当前课程如何运行
 
@@ -45,11 +49,15 @@ python 03-huggingface/lessons/05-sft-preprocessing.py
 python 03-huggingface/lessons/06-sft-dataset-and-batch.py
 python 03-huggingface/lessons/07-full-parameter-sft.py
 python 03-huggingface/lessons/08-lora-sft.py
+python 03-huggingface/lessons/09-generation-strategies.py
+python 03-huggingface/lessons/10-datasets-workflow.py
+python 03-huggingface/lessons/11-jsonl-evaluation.py
+python 03-huggingface/lessons/12-error-analysis.py
 ```
 
 第一次运行会从 Hugging Face Hub 下载模型资源，之后会复用本地缓存。课程 01 只读取体积较小的配置文件；课程 00 会下载情感分类模型权重。
 
-当前四个脚本依次回答：
+这些脚本分别处理下面的问题：
 
 - Pipeline 如何封装预处理、模型前向与后处理
 - `config.json` 能告诉我们哪些模型结构信息
@@ -155,7 +163,7 @@ projects/01-text-generation-baseline/
 - 原始输出、抽取答案和标准答案
 - 运行设备与耗时
 
-## 常见误区
+## 最常出错的地方
 
 - 不要手写聊天格式替代模型自带 Chat Template
 - 不要只保存最终准确率，必须保留逐样本输出
@@ -176,10 +184,10 @@ projects/01-text-generation-baseline/
 - [x] 能构造 SFT Dataset、Label Mask 和动态 Padding Batch
 - [x] 能解释全参数微调与 LoRA 的差异
 - [x] 能配置并保存 LoRA Adapter
-- [ ] 能比较至少三种生成设置
-- [ ] 能处理 Hugging Face Dataset
-- [ ] 能输出 JSONL 预测文件和准确率
-- [ ] 完成阶段项目与错误分析
+- [x] 能比较至少三种生成设置
+- [x] 能处理 Hugging Face Dataset
+- [x] 能输出 JSONL 预测文件和准确率
+- [x] 完成阶段项目所需的评测与错误分析最小链路
 
 ## 权威资料
 

@@ -1,6 +1,6 @@
 # PyTorch 与深度学习基础
 
-这一阶段按“张量基础 → 神经网络 → 训练流程 → CNN 项目 → 模型分析”的顺序推进。
+先把 Tensor 和 Autograd 弄明白，再搭网络、写训练循环。后半段用 CNN 项目把数据、训练、保存和错误分析串起来，最后补上 ResNet、序列模型、GNN 与混合精度。
 
 ## 目录说明
 
@@ -33,6 +33,13 @@
 | 12 | CNN 基础 | 卷积、池化、展平和图像分类网络 | [12-conv2d-and-pooling.py](lessons/12-conv2d-and-pooling.py) |
 | 13 | 模型评估 | 混淆矩阵、分类指标和错误样本分析 | [13-confusion-matrix-analysis.py](lessons/13-confusion-matrix-analysis.py) |
 | 14 | 数据增强与归一化 | 随机增强、标准化、早停与训练曲线 | [14-data-augmentation-and-normalization.py](lessons/14-data-augmentation-and-normalization.py) |
+| 15 | Adam 与学习率 | Adam/AdamW、学习率与优化过程 | [15-adam-lro.py](lessons/15-adam-lro.py) |
+| 16 | ResNet | 残差分支、Shortcut 与形状匹配 | [16-residual-network.py](lessons/16-residual-network.py) |
+| 17 | RNN/LSTM | 序列输出、隐藏状态与记忆单元 | [17-rnn-and-lstm.py](lessons/17-rnn-and-lstm.py) |
+| 18 | 图神经网络 | GCN、GAT、GIN 与消息传递 | [18-graph-neural-networks.py](lessons/18-graph-neural-networks.py) |
+| 19 | GPU 与混合精度 | Device、Autocast、GradScaler 和显存 | [19-device-and-mixed-precision.py](lessons/19-device-and-mixed-precision.py) |
+
+预备科研能力见 [科研检索与人工智能会议入门](RESEARCH-FOUNDATIONS.md)，覆盖 arXiv、Hugging Face、Google Scholar、DBLP、ICML、NeurIPS 和 ICLR。
 
 ## 完整项目
 
@@ -96,11 +103,14 @@ python 01-pytorch-basics/lessons/14-data-augmentation-and-normalization.py
 
 ![归一化 FashionMNIST 混淆矩阵](outputs/normalized_confusion_matrix.png)
 
-## 下一步
+## 学到这里应当会什么
 
-- 补充 ResNet 的残差连接实现
-- 学习 RNN/LSTM 的序列建模基础
-- 把训练与评估逻辑提取成可复用模块
-- 为关键组件增加自动化测试
+- [x] 前向传播、反向传播与 Autograd
+- [x] Dataset、DataLoader、损失函数与优化器
+- [x] MLP、CNN、ResNet 与 RNN/LSTM
+- [x] GCN、GAT、GIN 的消息传递基础
+- [x] GPU 设备迁移与混合精度
+- [x] 训练/验证/测试、Checkpoint 与错误分析
+- [x] 基础论文检索与会议认知
 
 完成本阶段的核心内容后，进入 [阶段 2：Transformer 原理与手写实现](../02-transformer/README.md)。
